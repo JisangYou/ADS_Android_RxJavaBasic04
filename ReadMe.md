@@ -64,7 +64,58 @@ public class MainActivity extends AppCompatActivity {
 
 > 버튼, 스크롤, 여러 이벤트를 옵저버블로 처리해주는 라이브러리. 버튼 클릭, 스크롤 상태에 대한 처리, 기타 뷰 이벤트 처리에 모두 사용할 수 있음.
 
+### RxBinding을 사용하지 않은 로그인 예제
 
+```Java
+// 이전
+boolean checkEmail = false;
+boolean checkPassword = false;
+private void enableSignupButton(){
+    if(checkEmail && checkPassword && checkRepeat && checkName){
+        btnSignup.setEnabled(true);
+    }else{
+        btnSignup.setEnabled(false);
+    }
+}
+
+private void initView() {
+    editEmail = (EditText) findViewById(R.id.editEmail);
+    editEmail.addTextChangedListener(new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            checkEmail = VerificationUtil.isValidEmail(charSequence.toString());
+            enableSignupButton();
+        }
+        @Override
+        public void afterTextChanged(Editable editable) {
+
+        }
+    });
+
+    editPassword = (EditText) findViewById(R.id.editPassword);
+    editPassword.addTextChangedListener(new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            checkPassword = VerificationUtil.isValidPassword(charSequence.toString());
+            enableSignupButton();
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+
+        }
+    });
+```
+- RxBinding을 사용한 것과 비교했을 때 굉장히 코드가 길고 불필요한 부분이 있음을 알 수 있다. 
 
 ### 출처
 
@@ -73,10 +124,12 @@ public class MainActivity extends AppCompatActivity {
 ## TODO
 
 - binding에 대한 공부
+- 추후 업데이트 필요
 
 ## Retrospect
 
 - 추후에 프로젝트에 사용하면 유용할 것 같다.
 
 ## Output
-- 생략
+
+- 추후 예정
